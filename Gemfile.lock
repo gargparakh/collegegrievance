@@ -73,9 +73,9 @@ GEM
       mini_portile2 (~> 2.1.0)
     nokogiri (1.7.1-x86-mingw32)
       mini_portile2 (~> 2.1.0)
-    pg (1.0.0)
-    pg (1.0.0-x64-mingw32)
-    pg (1.0.0-x86-mingw32)
+    pg (0.21.0)
+    pg (0.21.0-x64-mingw32)
+    pg (0.21.0-x86-mingw32)
     puma (3.8.2)
     rack (2.0.1)
     rack-cors (0.4.1)
@@ -137,7 +137,7 @@ DEPENDENCIES
   aws-ses (~> 0.4.4)
   bcrypt (~> 3.1.7)
   byebug
-  pg (>= 0.18, < 2.0)
+  pg (~> 0.20)
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.2)
