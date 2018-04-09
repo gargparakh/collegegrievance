@@ -83,5 +83,4 @@ test:
 production:
   <<: *default
   database: grievance_production
-  username: grievance
-  password: <%= ENV['MYAPP02_DATABASE_PASSWORD'] %>
+ %>
