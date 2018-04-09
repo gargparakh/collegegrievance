@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170401215247) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "aadhars", force: :cascade do |t|
     t.string   "uid"
     t.string   "name"
@@ -74,6 +77,8 @@ ActiveRecord::Schema.define(version: 20170401215247) do
     t.text     "notes"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["assigned_to"], name: "index_complaint_updates_on_assigned_to", using: :btree
+    t.index ["complaint_id"], name: "index_complaint_updates_on_complaint_id", using: :btree
   end
 
   create_table "complaints", force: :cascade do |t|
