@@ -4,11 +4,12 @@ class UserController < ApplicationController
 
   def signup
     user = User.new(name: params[:name],
+                    enroll_no: params[:enroll_no]
                     contact: params[:contact],
                     email: params[:email],
                     password: params[:password],
                     phone_no_verified: false,
-                    aadhar_verified: false,
+                    verified: false,
                     email_verified: false)
 
     if user.save

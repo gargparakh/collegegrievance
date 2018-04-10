@@ -8,7 +8,6 @@ class AdminUserController < ApplicationController
 		                            phone: params[:phone],
                                 designation: params[:designation],
 		                            municipal_id: params[:municipal_id],
-                                department: params[:department],
                                 password: params[:password])
 
     if admin_user.save
@@ -95,26 +94,26 @@ class AdminUserController < ApplicationController
 
     user = AdminUser.find(get_logged_in_user_id)
 
-    if user.designation == "supervisor"
+    if user.designation == "principal"
       new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "pending").count
       pending_complaints = 0
       completed_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "completed").count
 
-    elsif user.designation == "ward officer"
+    # elsif user.designation == "ward officer"
 
-      ward = WardOffice.find(user.municipal_id)
+    #   ward = WardOffice.find(user.municipal_id)
 
-      new_complaints = ComplaintStatus.where(admin_user_id: user.id).count
-      pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-                      category: user.designation, status: "pending").count
-      completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-                      category: user.designation, status: "completed").count
+    #   new_complaints = ComplaintStatus.where(admin_user_id: user.id).count
+    #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+    #                   category: user.designation, status: "pending").count
+    #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+    #                   category: user.designation, status: "completed").count
 
-    elsif user.designation == "district officer"
+    # elsif user.designation == "district officer"
 
-      new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new").count
-      pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending").count
-      completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed").count
+    #   new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new").count
+    #   pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending").count
+    #   completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed").count
     end
 
     render json: {new_complaint: new_complaints, pending_complaint: pending_complaints, completed_complaint: completed_complaints}
@@ -126,27 +125,27 @@ class AdminUserController < ApplicationController
 
   user = AdminUser.find(get_logged_in_user_id)
 
-  if user.designation == "supervisor"
+  if user.designation == "principal"
     new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "pending")
     pending_complaints = {}
     completed_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "completed")
 
-  elsif user.designation == "ward officer"
+  # elsif user.designation == "ward officer"
 
-    ward = WardOffice.find(user.municipal_id)
+  #   ward = WardOffice.find(user.municipal_id)
 
-    new_complaints = ComplaintStatus.where(admin_user_id: user.id)
-    pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-                          status: "pending")
-    completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-                          status: "completed")
+  #   new_complaints = ComplaintStatus.where(admin_user_id: user.id)
+  #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+  #                         status: "pending")
+  #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+  #                         status: "completed")
 
-    elsif user.designation == "district officer"
+  #   elsif user.designation == "district officer"
 
-      new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new")
-      pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending")
-      completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed")
-    end
+  #     new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new")
+  #     pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending")
+  #     completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed")
+     end
 
   render json: {new_complaint: new_complaints, pending_complaint: pending_complaints, completed_complaint: completed_complaints}
 

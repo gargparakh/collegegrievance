@@ -1,2 +1,0 @@
-class WardOffice < ApplicationRecord
-end

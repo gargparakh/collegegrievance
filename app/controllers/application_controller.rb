@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   before_action :set_web_links
 
   def set_web_links
-    @back_end_link = "https://mygrievance.herokuapp.com/"
+    @back_end_link = "http://mygrievance.herokuapp.com/"
     @front_end_link = ""
   end
 
@@ -41,24 +41,4 @@ private
       return user.user_id
 
     end
-
-    def send_sms(to, message_body)
-
-      require 'twilio-ruby'
-
-      # put your own credentials here
-      account_sid = 'AC8a38d38238b258b6151360c1240947b0'
-      auth_token = '4a1c77bccb3821e25d48a1f7f680118c'
-
-      # set up a client to talk to the Twilio REST API
-      @client = Twilio::REST::Client.new account_sid, auth_token
-
-      @client.account.messages.create({
-        :from => '+14843417052',
-        :to => "+91" + to,
-        :body => message_body,
-      })
-
-    end
-
 end

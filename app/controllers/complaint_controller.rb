@@ -8,29 +8,13 @@ class ComplaintController < ApplicationController
                                 sub_category: params[:sub_category],
                                 description: params[:description],
                                 image: params[:image],
-                                latitude: params[:latitude],
-                                longitude: params[:longitude],
-                                address: params[:address],
-                                district: params[:district],
-                                state: params[:state],
-                                pincode: params[:pincode],
                                 user_id: get_logged_in_user_id)
 
     user = User.find(get_logged_in_user_id)
 
       if complaint.save
         # assign new complaint to respective district office
-        if params[:ward]
-          assignment_result = auto_assign_complaint(complaint.id,
-                                                complaint.state,
-                                                complaint.district,
-                                                complaint.subject,
-                                                params[:ward],
-                                                complaint.sub_category)
-        else
           assignment_result = register_new_complaint(complaint.id,
-                                                      complaint.state,
-                                                      complaint.district,
                                                       complaint.subject,
                                                       complaint.sub_category)
        end
@@ -239,7 +223,7 @@ class ComplaintController < ApplicationController
 private
 
   # assign new complaint to respective district office
-  def register_new_complaint(complaint_id, state, district, subject_of_complaint, sub_category)
+  def register_new_complaint(complaint_id, subject_of_complaint, sub_category)
 
     district_office = DistrictOffice.where(state: state, district: district).first
 

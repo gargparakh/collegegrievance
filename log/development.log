@@ -384,3 +384,212 @@ Migrating to AddComplaintIdToComplaintStatuses (20170401215247)
   [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
   [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(172529728443564555)[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+DEPRECATION WARNING: Using a dynamic :controller segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+DEPRECATION WARNING: Using a dynamic :action segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+DEPRECATION WARNING: Using a dynamic :controller segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+DEPRECATION WARNING: Using a dynamic :action segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[35m (260.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "grievance_development"[0m
+  [1m[35m (229.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "grievance_test"[0m
+DEPRECATION WARNING: Using a dynamic :controller segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+DEPRECATION WARNING: Using a dynamic :action segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (106.6ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "password_digest" character varying, "phone" character varying, "designation" character varying)[0m
+  [1m[35m (96.3ms)[0m  [1m[35mCREATE TABLE "api_keys" ("id" serial primary key, "secret_key" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "user_token" character varying, "user_type" character varying)[0m
+  [1m[35m (129.3ms)[0m  [1m[35mCREATE TABLE "complaint_feedbacks" ("id" serial primary key, "complaint_id" integer, "feedback" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (96.5ms)[0m  [1m[35mCREATE TABLE "complaint_statuses" ("id" serial primary key, "admin_user_id" character varying, "status" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "department" character varying, "sub_category" character varying, "complaint_id" integer)[0m
+  [1m[35m (96.4ms)[0m  [1m[35mCREATE TABLE "complaint_updates" ("id" serial primary key, "complaint_id" integer, "assigned_to" character varying, "notes" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (49.6ms)[0m  [1m[35mCREATE  INDEX  "index_complaint_updates_on_assigned_to" ON "complaint_updates" USING btree ("assigned_to")[0m
+  [1m[35m (50.8ms)[0m  [1m[35mCREATE  INDEX  "index_complaint_updates_on_complaint_id" ON "complaint_updates" USING btree ("complaint_id")[0m
+  [1m[35m (107.7ms)[0m  [1m[35mCREATE TABLE "complaints" ("id" serial primary key, "subject" character varying, "description" text, "image" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (95.8ms)[0m  [1m[35mCREATE TABLE "password_reset_links" ("id" serial primary key, "user_id" integer, "access_token" character varying, "secret_key" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (96.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "verified" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "password_digest" character varying, "contact" character varying, "enroll_no" character varying)[0m
+  [1m[35m (85.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (7.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20170401215247)[0m
+  [1m[35m (8.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20170401161208),
+(20170330180022),
+(20170322204023),
+(20170326105929),
+(20170324111308),
+(20170326110925),
+(20170324081859),
+(20170401183542),
+(20170401175720),
+(20170322203206),
+(20170401035618),
+(20170401160709),
+(20170401160847),
+(20170328140828),
+(20170401175434),
+(20170326083027),
+(20170401080620),
+(20170322202232),
+(20170401111127),
+(20170326111556),
+(20170328173740),
+(20170328162635),
+(20170328163340),
+(20170328195212),
+(20170323181812),
+(20170401160553),
+(20170328162420),
+(20170328132940),
+(20170330142750),
+(20170328154855),
+(20170401040102),
+(20170322202730),
+(20170328153857),
+(20170401111242),
+(20170401184939),
+(20170328154412),
+(20170324111644),
+(20170323211523),
+(20170401080729),
+(20170401183030),
+(20170328162427),
+(20170328132827),
+(20170328132316),
+(20170326080304),
+(20170323182126),
+(20170323182603),
+(20170326073925),
+(20170322205658),
+(20170328140539),
+(20170328134326),
+(20170401202216),
+(20170401080818),
+(20170322203412),
+(20170328181545),
+(20170324082032),
+(20170328141923),
+(20170328131559),
+(20170328141500),
+(20170323182056),
+(20170328172443),
+(20170328164444),
+(20170401085114),
+(20170328131321),
+(20170324082049),
+(20170323172752),
+(20170330142422),
+(20170328163919),
+(20170323211320),
+(20170328141555),
+(20170328141948),
+(20170328155038);
+
+[0m
+  [1m[35m (93.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2018-04-10 17:25:34 UTC], ["updated_at", 2018-04-10 17:25:34 UTC]]
+  [1m[35m (11.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (102.0ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "password_digest" character varying, "phone" character varying, "designation" character varying)[0m
+  [1m[35m (107.2ms)[0m  [1m[35mCREATE TABLE "api_keys" ("id" serial primary key, "secret_key" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "user_token" character varying, "user_type" character varying)[0m
+  [1m[35m (107.0ms)[0m  [1m[35mCREATE TABLE "complaint_feedbacks" ("id" serial primary key, "complaint_id" integer, "feedback" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (95.9ms)[0m  [1m[35mCREATE TABLE "complaint_statuses" ("id" serial primary key, "admin_user_id" character varying, "status" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "department" character varying, "sub_category" character varying, "complaint_id" integer)[0m
+  [1m[35m (85.4ms)[0m  [1m[35mCREATE TABLE "complaint_updates" ("id" serial primary key, "complaint_id" integer, "assigned_to" character varying, "notes" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (50.4ms)[0m  [1m[35mCREATE  INDEX  "index_complaint_updates_on_assigned_to" ON "complaint_updates" USING btree ("assigned_to")[0m
+  [1m[35m (61.4ms)[0m  [1m[35mCREATE  INDEX  "index_complaint_updates_on_complaint_id" ON "complaint_updates" USING btree ("complaint_id")[0m
+  [1m[35m (107.8ms)[0m  [1m[35mCREATE TABLE "complaints" ("id" serial primary key, "subject" character varying, "description" text, "image" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (107.0ms)[0m  [1m[35mCREATE TABLE "password_reset_links" ("id" serial primary key, "user_id" integer, "access_token" character varying, "secret_key" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (96.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "verified" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "password_digest" character varying, "contact" character varying, "enroll_no" character varying)[0m
+  [1m[35m (85.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (7.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20170401215247)[0m
+  [1m[35m (8.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20170401161208),
+(20170330180022),
+(20170322204023),
+(20170326105929),
+(20170324111308),
+(20170326110925),
+(20170324081859),
+(20170401183542),
+(20170401175720),
+(20170322203206),
+(20170401035618),
+(20170401160709),
+(20170401160847),
+(20170328140828),
+(20170401175434),
+(20170326083027),
+(20170401080620),
+(20170322202232),
+(20170401111127),
+(20170326111556),
+(20170328173740),
+(20170328162635),
+(20170328163340),
+(20170328195212),
+(20170323181812),
+(20170401160553),
+(20170328162420),
+(20170328132940),
+(20170330142750),
+(20170328154855),
+(20170401040102),
+(20170322202730),
+(20170328153857),
+(20170401111242),
+(20170401184939),
+(20170328154412),
+(20170324111644),
+(20170323211523),
+(20170401080729),
+(20170401183030),
+(20170328162427),
+(20170328132827),
+(20170328132316),
+(20170326080304),
+(20170323182126),
+(20170323182603),
+(20170326073925),
+(20170322205658),
+(20170328140539),
+(20170328134326),
+(20170401202216),
+(20170401080818),
+(20170322203412),
+(20170328181545),
+(20170324082032),
+(20170328141923),
+(20170328131559),
+(20170328141500),
+(20170323182056),
+(20170328172443),
+(20170328164444),
+(20170401085114),
+(20170328131321),
+(20170324082049),
+(20170323172752),
+(20170330142422),
+(20170328163919),
+(20170323211320),
+(20170328141555),
+(20170328141948),
+(20170328155038);
+
+[0m
+  [1m[35m (84.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2018-04-10 17:25:35 UTC], ["updated_at", 2018-04-10 17:25:35 UTC]]
+  [1m[35m (10.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+DEPRECATION WARNING: Using a dynamic :controller segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)
+DEPRECATION WARNING: Using a dynamic :action segment in a route is deprecated and will be removed in Rails 5.2. (called from block in <top (required)> at /home/parakh/rails/grievance/config/routes.rb:5)

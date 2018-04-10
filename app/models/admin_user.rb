@@ -1,7 +1,6 @@
 class AdminUser < ApplicationRecord
 
 	has_many :complaint_updates
-	has_one :municipal_office
 	before_save { self.email = email.downcase }
 	validates :name, presence: true
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

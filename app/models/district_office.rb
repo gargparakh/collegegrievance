@@ -1,2 +1,0 @@
-class DistrictOffice < ApplicationRecord
-end
