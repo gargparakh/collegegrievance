@@ -1,2 +1,0 @@
-class ComplaintStatus < ApplicationRecord
-end
