@@ -23,7 +23,7 @@ private
               return false
             end
         else
-          render json: {status: "error", error_message: "Access denied"}
+          render json: {status: "error", error_message: "Logging Access denied"}
           return false
         end
     end
