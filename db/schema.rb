@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411092017) do
+ActiveRecord::Schema.define(version: 20180412081749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180411092017) do
   create_table "admin_users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.integer  "phone"
+    t.string   "phone"
     t.string   "password_digest"
     t.string   "designation"
     t.datetime "created_at",      null: false
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20180411092017) do
     t.string   "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "complaint_chats", force: :cascade do |t|
+    t.string   "chats"
+    t.string   "role"
+    t.text     "image"
+    t.integer  "complaint_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "complaint_updates", force: :cascade do |t|
@@ -49,6 +58,7 @@ ActiveRecord::Schema.define(version: 20180411092017) do
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "status"
   end
 
   create_table "password_reset_links", force: :cascade do |t|
@@ -64,7 +74,7 @@ ActiveRecord::Schema.define(version: 20180411092017) do
     t.string   "branch"
     t.string   "semester"
     t.string   "name"
-    t.integer  "contact"
+    t.string   "contact"
     t.string   "email"
     t.boolean  "verified"
     t.string   "password_digest"

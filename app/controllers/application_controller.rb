@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::API
 
-  before_action :set_web_links
+  #before_action :set_web_links
 
   def set_web_links
-    @back_end_link = "http://mygrievance.herokuapp.com/"
+    @back_end_link = "http://birtsgrievance.herokuapp.com/"
     @front_end_link = ""
   end
 
@@ -23,7 +23,7 @@ private
               return false
             end
         else
-          render json: {status: "error", error_message: "Logging Access denied"}
+          render json: {status: "error", error_message: "Header Access denied"}
           return false
         end
     end
@@ -40,5 +40,14 @@ private
        secret_key: request.headers["HTTP_SECRET_KEY"]).first
       return user.user_id
 
+    end
+
+    def verified
+      if User.find(get_logged_in_user_id).verified
+        return true
+      else
+        render json: {status: "error", error_message: "You are not verified yet."}
+        return false
+      end
     end
 end

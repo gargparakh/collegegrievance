@@ -10,14 +10,16 @@ Rails.application.routes.draw do
   post 'auth/admin_login' => 'auth#admin_login'
   delete 'auth/logout_user' => 'auth#logout_user'
   delete 'auth/logout_admin' => 'auth#logout_admin'
-  resources :admin_users
-
-  resources :users do
+  
+  resources :admin_users do
     collection do
-      post :signup
+      get 'unverified_users'
     end
-    resources :complaints do
-      resources :complaint_updates
-    end
+  end
+  resources :users do
+  end
+  resources :complaints do
+  end
+  resources :complaint_updates do
   end
 end

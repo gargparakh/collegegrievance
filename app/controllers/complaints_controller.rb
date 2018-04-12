@@ -1,35 +1,23 @@
 class ComplaintsController < ApplicationController
 
-  #before_action :check_user_logged_in
- # before_action :check_user_logged_in_as_admin, only: [:assign_complaint, :mark_finished, :transfer_complaint]
+  before_action :check_user_logged_in, :verified
+  #before_action :check_user_logged_in_as_admin, only: []
+
+
+
 
   def create
+
     complaint = Complaint.new(subject: params[:subject],
-                
                                 description: params[:description],
                                 image: params[:image],
-                                user_id: get_logged_in_user_id)
+                                user_id: get_logged_in_user_id,
+                                status: "pending")
 
-    user = User.find(get_logged_in_user_id)
+    
 
       if complaint.save
-      #   # assign new complaint to respective district office
-      #   if params[:ward]
-      #     assignment_result = auto_assign_complaint(complaint.id,
-      #                                           complaint.state,
-      #                                           complaint.district,
-      #                                           complaint.subject,
-      #                                           params[:ward],
-      #                                           complaint.sub_category)
-      #   else
-      #     assignment_result = register_new_complaint(complaint.id,
-      #                                                 complaint.state,
-      #                                                 complaint.district,
-      #                                                 complaint.subject,
-      #                                                 complaint.sub_category)
-      #  end
-      #   #send_sms(user.contact, "Your complaint has been registered. Your complaint id is -" + complaint.id)
-        render json: {status: "success", complaint: complaint, message: assignment_result}
+        render json: {status: "success", complaint: complaint}
       else
         render json: {status: "error", error_message: complaint.errors.full_messages}
       end
