@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20180412081749) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "status"
+    t.string   "resolved"
   end
 
   create_table "password_reset_links", force: :cascade do |t|

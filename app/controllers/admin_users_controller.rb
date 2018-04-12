@@ -1,13 +1,12 @@
 class AdminUsersController < ApplicationController
-
-  before_action :check_user_logged_in_as_admin, only: [:update_password,:fetch_complaints]
+  before_action :check_user_logged_in_as_admin, only: [:update_password, :fetch_complaints]
 
   def create
     admin_user = AdminUser.new(name: params[:name],
-                                email: params[:email],
-		                            phone: params[:phone],
-                                designation: params[:designation],
-                                password: params[:password])
+                               email: params[:email],
+                               phone: params[:phone],
+                               designation: params[:designation],
+                               password: params[:password])
 
     if admin_user.save
       render json: {status: "success"}
@@ -16,53 +15,51 @@ class AdminUsersController < ApplicationController
     end
   end
 
+  #update password
+
   def update_password
-
     if params[:email] && params[:password]
+      user = AdminUser.where(email: params[:email]).first
 
-        user = AdminUser.where(email: params[:email]).first
+      if user.id == get_logged_in_admin_id
+        user.password = params[:password]
 
-          if user.id == get_logged_in_admin_id
-
-            user.password = params[:password]
-
-              if user.save
-                render json: {status: "success"}
-              else
-                error_message = user.errors.full_messages
-              end
-
-          else
-            error_message = "user not found"
-            render json: {status: "error", error_message: error_message}
-          end
+        if user.save
+          render json: {status: "success"}
+        else
+          error_message = user.errors.full_messages
+        end
+      else
+        error_message = "user not found"
+        render json: {status: "error", error_message: error_message}
+      end
     else
       render json: {status: "error", error_message: "params missing"}
     end
   end
 
+  #Verify the user
 
-  # def unverified_users
-  #  if user = User.where(verified: "false").
-  #    end 
-  #  render json: {verified: user}
-  # end
+  def verify_users
+    if params[:id]
+      user = User.find(id: params[:id])
+      user.verified = "true"
+      if user.save
+        render json: {status: "success"}
+      else
+        error_message = user.errors.full_messages
+      end
+    else
+      render json: {status: "error", error_message: "params missing"}
+    end
+  end
 
-
-
-
+  #fetch complaints
 
   def fetch_complaints
-
-    user = AdminUser.find(get_logged_in_user_id)
-  
-    if user.designation == "principal"
-      new_complaints = Complaint.where(status: "pending")
-      completed_complaints = Complaint.where(status: "completed")
-    end
-  
+    new_complaints = Complaint.where(status: "pending")
+    completed_complaints = Complaint.where(status: "completed")
     render json: {new_complaint: new_complaints, completed_complaint: completed_complaints}
-
   end
 
 
@@ -78,44 +75,43 @@ class AdminUsersController < ApplicationController
 
 
 
-    
-    #elsif user.designation == "hod"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-    #   ward = WardOffice.find(user.municipal_id)
-  
-    #   new_complaints = ComplaintStatus.where(admin_user_id: user.id)
-    #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-    #                         status: "pending")
-    #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-    #                         status: "completed")
-  
-    #   elsif user.designation == "district officer"
-  
-    #     new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new")
-    #     pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending")
-    #     completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed")
+  #elsif user.designation == "hod"
 
+  #   ward = WardOffice.find(user.municipal_id)
 
+  #   new_complaints = ComplaintStatus.where(admin_user_id: user.id)
+  #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+  #                         status: "pending")
+  #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+  #                         status: "completed")
 
+  #   elsif user.designation == "district officer"
 
-
-
-
-
-
-
-
-
-
-
+  #     new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new")
+  #     pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending")
+  #     completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed")
 
   # Reset user password from link sent to email
 
   def reset_password
-
     if params[:access_token] && params[:secret_key] && params[:password]
       user_link = PasswordResetLink.where(access_token: params[:access_token],
-                secret_key: params[:secret_key]).first
+                                          secret_key: params[:secret_key]).first
       if user_link
         user = AdminUser.find(user_link.user_id)
         user.password = params[:password]
@@ -158,7 +154,6 @@ class AdminUsersController < ApplicationController
   # fetch stats for admin's dashboard
 
   def fetch_statistics
-
     user = AdminUser.find(get_logged_in_user_id)
 
     if user.designation == "principal"
@@ -166,62 +161,57 @@ class AdminUsersController < ApplicationController
       pending_complaints = 0
       completed_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "completed").count
 
-    # elsif user.designation == "ward officer"
+      # elsif user.designation == "ward officer"
 
-    #   ward = WardOffice.find(user.municipal_id)
+      #   ward = WardOffice.find(user.municipal_id)
 
-    #   new_complaints = ComplaintStatus.where(admin_user_id: user.id).count
-    #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-    #                   category: user.designation, status: "pending").count
-    #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-    #                   category: user.designation, status: "completed").count
+      #   new_complaints = ComplaintStatus.where(admin_user_id: user.id).count
+      #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+      #                   category: user.designation, status: "pending").count
+      #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+      #                   category: user.designation, status: "completed").count
 
-    # elsif user.designation == "district officer"
+      # elsif user.designation == "district officer"
 
-    #   new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new").count
-    #   pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending").count
-    #   completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed").count
+      #   new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new").count
+      #   pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending").count
+      #   completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed").count
     end
 
     render json: {new_complaint: new_complaints, pending_complaint: pending_complaints, completed_complaint: completed_complaints}
-
   end
 
- # fetch complaints assigned to users
- def fetch_complaints
+  # fetch complaints assigned to users
+  def fetch_complaints
+    user = AdminUser.find(get_logged_in_user_id)
 
-  user = AdminUser.find(get_logged_in_user_id)
+    if user.designation == "principal"
+      new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "pending")
+      pending_complaints = {}
+      completed_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "completed")
 
-  if user.designation == "principal"
-    new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "pending")
-    pending_complaints = {}
-    completed_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "completed")
+      # elsif user.designation == "ward officer"
 
-  # elsif user.designation == "ward officer"
+      #   ward = WardOffice.find(user.municipal_id)
 
-  #   ward = WardOffice.find(user.municipal_id)
+      #   new_complaints = ComplaintStatus.where(admin_user_id: user.id)
+      #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+      #                         status: "pending")
+      #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
+      #                         status: "completed")
 
-  #   new_complaints = ComplaintStatus.where(admin_user_id: user.id)
-  #   pending_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-  #                         status: "pending")
-  #   completed_complaints = ComplaintStatus.where(district_office_id: ward.district_office_id, ward_office_id: user.municipal_id,
-  #                         status: "completed")
+      #   elsif user.designation == "district officer"
 
-  #   elsif user.designation == "district officer"
+      #     new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new")
+      #     pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending")
+      #     completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed")
+    end
 
-  #     new_complaints = ComplaintStatus.where(admin_user_id: user.id, status: "new")
-  #     pending_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "pending")
-  #     completed_complaints = ComplaintStatus.where(district_office_id: user.municipal_id, status: "completed")
-     end
+    render json: {new_complaint: new_complaints, pending_complaint: pending_complaints, completed_complaint: completed_complaints}
+  end
 
-  render json: {new_complaint: new_complaints, pending_complaint: pending_complaints, completed_complaint: completed_complaints}
-
- end
-
- def fetch_alerts
-
-   alerts = Alert.where(admin_user_id: get_logged_in_user_id)
-   render json: {status: "success", alerts: alerts}
- end
-
+  def fetch_alerts
+    alerts = Alert.where(admin_user_id: get_logged_in_user_id)
+    render json: {status: "success", alerts: alerts}
+  end
 end

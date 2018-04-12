@@ -1,0 +1,2 @@
+class ComplaintChat < ApplicationRecord
+end
