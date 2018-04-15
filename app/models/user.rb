@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-	has_many :complaints
+	has_many :complaints, dependent: :destroy
 		before_save { self.email = email.downcase }
 		validates :name, presence: true
 		validates :enroll_no, presence: true

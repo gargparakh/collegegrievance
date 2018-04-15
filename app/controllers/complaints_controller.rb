@@ -6,7 +6,7 @@ class ComplaintsController < ApplicationController
 
 
 
-  def create
+  def create_complaint
 
     complaint = Complaint.new(subject: params[:subject],
                                 description: params[:description],
