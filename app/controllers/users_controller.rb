@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-
   before_action :check_user_logged_in, only: [:update_password]
-
-
 
   def create
     user = User.new(name: params[:name],
@@ -26,8 +23,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-
   def verified
     if User.find(get_logged_in_user_id).verified
       return true
@@ -37,71 +32,62 @@ class UsersController < ApplicationController
     end
   end
 
-
   def user_pending_complaints
-    user= User.find(get_logged_in_user_id)
-complaints = user.complaints.where(status=)
+    #     user= User.find(get_logged_in_user_id)
+    # complaints = user.complaints.where(status=)
   end
 
   def user_resolved_complaints
-
   end
 
   def update_password
-
     if params[:old_password] && params[:new_password]
+      user = User.find(get_logged_in_user_id)
+
+      if user && user.authenticate(params[:old_password])
+        if user.authenticate(params[:new_password])
+          render json: {status: "error", error_message: "old password and new password can't be the same!"} and return
+        end
 
         user = User.find(get_logged_in_user_id)
+        user.password = params[:new_password]
 
-        if user && user.authenticate(params[:old_password])
-
-          if user.authenticate(params[:new_password])
-            render json: { status: "error", error_message: "old password and new password can't be the same!"} and return
-          end
-
-            user = User.find(get_logged_in_user_id)
-            user.password = params[:new_password]
-
-              if user.save
-                render json: {status: "success"}
-              else
-                error_message = user.errors.full_messages
-                render json: {status: "error", error_message: error_message}
-              end
-
+        if user.save
+          render json: {status: "success"}
         else
-          error_message = "Old password is incorrect"
+          error_message = user.errors.full_messages
           render json: {status: "error", error_message: error_message}
         end
+      else
+        error_message = "Old password is incorrect"
+        render json: {status: "error", error_message: error_message}
+      end
     else
       render json: {status: "error", error_message: "params missing"}
     end
-
   end
 
   def reset_password
-
-    if params[:access_token ] && params[:secret_key] && params[:password]
-      user_link = PasswordResetLink.where(access_token: params[:access_token] , secret_key: params[:secret_key]).first
+    if params[:access_token] && params[:secret_key] && params[:password]
+      user_link = PasswordResetLink.where(access_token: params[:access_token], secret_key: params[:secret_key]).first
       if user_link
-        user=User.find(user_link.user_id)
-        user.password=params[:password]
+        user = User.find(user_link.user_id)
+        user.password = params[:password]
         if user.save
-          render json: {status:"success",message:"Password changed"}
+          render json: {status: "success", message: "Password changed"}
         else
-          error_message=user.errors.full_messages
+          error_message = user.errors.full_messages
         end
       else
-        error_message="User not found"
+        error_message = "User not found"
       end
     else
-      error_message="Invalid parameters"
+      error_message = "Invalid parameters"
     end
-    render json:{status:"Error",error_message:error_message}
+    render json: {status: "Error", error_message: error_message}
   end
 
-
- # Request a password reset link on email
+  # Request a password reset link on email
   def request_password_reset
     if params[:email]
       user = User.where(email: params[:email]).first
@@ -109,17 +95,16 @@ complaints = user.complaints.where(status=)
         password_reset_link = PasswordResetLink.new(user_id: user.id)
         if password_reset_link.save
           #send email
-          render json: {status:"success",message:"Reset mail sent"} and return
+          render json: {status: "success", message: "Reset mail sent"} and return
         else
           error_message = password_reset_link.errors.full_messages
         end
       else
-        error_message="User not found"
+        error_message = "User not found"
       end
     else
-      error_message="Error invalid parameters"
+      error_message = "Error invalid parameters"
     end
-    render json:{status:"Error",error_message:error_message}
+    render json: {status: "Error", error_message: error_message}
   end
-
 end
