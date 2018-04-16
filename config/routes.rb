@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   delete 'auth/logout_user' => 'auth#logout_user'
   delete 'auth/logout_admin' => 'auth#logout_admin'
   post 'complaints/create_complaint' => 'complaints#create_complaint'
+  post 'complaints/show_user_complaints' => 'complaints#show_user_complaints'
   resources :admin_users do
     collection do
       get 'unverified_users'

@@ -21,14 +21,14 @@ class ComplaintsController < ApplicationController
 
     complaints = Complaint.where(user_id: user_id)
 
-    complaints.each do |complaint|
-      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
-      if complaint_status
-        complaint.status = complaint_status.status
-      else
-        complaint.status = "New"
-      end
-    end
+    # complaints.each do |complaint|
+    #   complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+    #   if complaint_status
+    #     complaint.status = complaint_status.status
+    #   else
+    #     complaint.status = "New"
+    #   end
+    # end
 
     render json: complaints, methods: [:status]
   end
