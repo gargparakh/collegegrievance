@@ -11,7 +11,7 @@ class ComplaintsController < ApplicationController
     complaint = Complaint.new(subject: params[:subject],
                                 description: params[:description],
                                 image: params[:image],
-                                user_id: params[:user_id]
+                                user_id: params[:user_id],#get_logged_in_user_id,
                                 status: "pending")
 
     
