@@ -30,11 +30,22 @@ class UsersController < ApplicationController
 
   def verified
     if User.find(get_logged_in_user_id).verified
+      # render json: {status: "success", message: "You are verified user."}
       return true
     else
       render json: {status: "error", error_message: "You are not verified yet."}
       return false
     end
+  end
+
+
+  def user_pending_complaints
+    user= User.find(get_logged_in_user_id)
+complaints = user.complaints.where(status=)
+  end
+
+  def user_resolved_complaints
+
   end
 
   def update_password

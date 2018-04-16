@@ -4557,6 +4557,7 @@ Migrating to AddColumnToComplaints (20180412081749)
   [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
   [1m[36mComplaint Load (0.7ms)[0m  [1m[34mSELECT "complaints".* FROM "complaints"[0m
+<<<<<<< Updated upstream
   [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(172529728443564555);[0m
   [1m[36mActiveRecord::SchemaMigration Load (27.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
 Migrating to ChangeContactToBeStringInUsers (20180412055809)
@@ -4602,3 +4603,449 @@ Migrating to AddColumnToComplaints (20180412081749)
   [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
   [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "complaints" ("subject", "description", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["subject", "ihn"], ["description", "ini"], ["user_id", 1], ["created_at", 2018-04-15 20:58:46 UTC], ["updated_at", 2018-04-15 20:58:46 UTC]]
   [1m[35m (9.7ms)[0m  [1m[35mCOMMIT[0m
+=======
+  [1m[36mUser Load (88.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mApiKey Load (32.6ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:03:09 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (21.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AuthController#logout_user as */*
+Filter chain halted as :check_user_logged_in rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:03:56 +0530
+Processing by AuthController#logout_user as */*
+  [1m[36mApiKey Load (1.0ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" IS NULL AND "api_keys"."user_token" IS NULL AND "api_keys"."user_type" = $1 ORDER BY "api_keys"."id" ASC LIMIT $2[0m  [["user_type", "visitor"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 5.5ms)
+
+
+  
+NoMethodError (undefined method `delete' for nil:NilClass):
+  
+app/controllers/auth_controller.rb:74:in `logout_user'
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:05:43 +0530
+Processing by AuthController#logout_user as */*
+Filter chain halted as :check_user_logged_in rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:19:12 +0530
+Processing by AuthController#logout_user as */*
+  [1m[36mApiKey Load (1.2ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "3Qi1oMSGoEZ3HDRYtWX4DtPr"], ["user_token", "LrJ4FaPMrYRLvgYJpdz9aDqs"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "3Qi1oMSGoEZ3HDRYtWX4DtPr"], ["user_token", "LrJ4FaPMrYRLvgYJpdz9aDqs"], ["user_type", "visitor"], ["LIMIT", 1]]
+  [1m[35mSQL (23.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 11]]
+Completed 200 OK in 47ms (Views: 0.2ms | ActiveRecord: 31.3ms)
+
+
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:30:16 +0530
+Processing by AuthController#logout_user as */*
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "MDpugdr5CrDzwxSAmqMAtvrB"], ["user_token", "qtH5cCiWWVkMugheTG6n2Ykh"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "MDpugdr5CrDzwxSAmqMAtvrB"], ["user_token", "qtH5cCiWWVkMugheTG6n2Ykh"], ["user_type", "visitor"], ["LIMIT", 1]]
+  [1m[35mSQL (11.1ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 12]]
+Completed 200 OK in 29ms (Views: 0.2ms | ActiveRecord: 14.9ms)
+
+
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:50:05 +0530
+Processing by AuthController#logout_user as */*
+Filter chain halted as :check_user_logged_in rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started DELETE "/auth/logout_user" for 127.0.0.1 at 2018-04-13 17:50:13 +0530
+Processing by AuthController#logout_user as */*
+  [1m[36mApiKey Load (0.6ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "H63FdfXD86gM99hmUstRsinT"], ["user_token", "3wHXnnbRku2MPpkP3jNxAiFk"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "H63FdfXD86gM99hmUstRsinT"], ["user_token", "3wHXnnbRku2MPpkP3jNxAiFk"], ["user_type", "visitor"], ["LIMIT", 1]]
+  [1m[35mSQL (8.1ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 13]]
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 9.2ms)
+
+
+>>>>>>> Stashed changes
+  [1m[36mUser Load (73.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mApiKey Load (22.8ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 11:18:28 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (19.7ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"fees", "description"=>"fees", "image"=>"123456"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+Filter chain halted as :verified rendered or redirected
+Completed 200 OK in 40ms (Views: 0.2ms | ActiveRecord: 8.5ms)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["email", "garg.parakh2@gmail.com"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "users" SET "verified" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["verified", true], ["updated_at", 2018-04-16 05:48:56 UTC], ["id", 3]]
+  [1m[35m (35.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 11:19:00 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"fees", "description"=>"fees", "image"=>"123456"}
+  [1m[36mApiKey Load (1.2ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (52.9ms)[0m  [1m[32mINSERT INTO "complaints" ("subject", "description", "image", "user_id", "created_at", "updated_at", "status") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["subject", "fees"], ["description", "fees"], ["image", "123456"], ["user_id", 3], ["created_at", 2018-04-16 05:49:00 UTC], ["updated_at", 2018-04-16 05:49:00 UTC], ["status", "pending"]]
+  [1m[35m (28.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 123ms (Views: 0.9ms | ActiveRecord: 89.5ms)
+
+
+  [1m[36mComplaint Load (0.5ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" ORDER BY "complaints"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (30.4ms)[0m  [1m[32mINSERT INTO "complaint_chats" ("chats", "role", "image", "complaint_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["chats", "hello hiii"], ["role", "user"], ["image", "image"], ["complaint_id", 6], ["created_at", 2018-04-16 05:57:07 UTC], ["updated_at", 2018-04-16 05:57:07 UTC]]
+  [1m[35m (30.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/articles" for 127.0.0.1 at 2018-04-16 11:37:35 +0530
+Started GET "/articles" for 127.0.0.1 at 2018-04-16 11:37:45 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/articles"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/articles"):
+  
+actionpack (5.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.1) lib/rack/cors.rb:81:in `call'
+railties (5.0.2) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+actionpack (5.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.1) lib/rack/cors.rb:81:in `call'
+railties (5.0.2) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-04-16 11:37:46 +0530
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /home/rails/.rvm/gems/ruby-2.4.1/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/rails/.rvm/gems/ruby-2.4.1/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb (24.8ms)
+Completed 200 OK in 231ms (Views: 168.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2018-04-16 11:37:47 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.1) lib/rack/cors.rb:81:in `call'
+railties (5.0.2) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-04-16 11:37:49 +0530
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /home/rails/.rvm/gems/ruby-2.4.1/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/rails/.rvm/gems/ruby-2.4.1/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb (2.3ms)
+Completed 200 OK in 5ms (Views: 3.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/user" for 127.0.0.1 at 2018-04-16 11:37:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/user"):
+  
+actionpack (5.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.1) lib/rack/cors.rb:81:in `call'
+railties (5.0.2) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/users" for 127.0.0.1 at 2018-04-16 11:38:13 +0530
+  
+SyntaxError (/home/rails/Parakh/rails/collegegrievance/app/controllers/users_controller.rb:43: syntax error, unexpected ')'
+user.complaints.where(status=)
+                              ^
+/home/rails/Parakh/rails/collegegrievance/app/controllers/users_controller.rb:125: syntax error, unexpected end-of-input, expecting keyword_end):
+  
+app/controllers/users_controller.rb:43: syntax error, unexpected ')'
+app/controllers/users_controller.rb:125: syntax error, unexpected end-of-input, expecting keyword_end
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:01:20 +0530
+  
+SyntaxError (/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:72: unmatched close parenthesis: /get_logged_in_user_id,
+                                status: "pending")
+
+    
+
+      if complaint.save
+        render json: {status: "success", complaint: complaint}
+      else
+        render json: {status: "error", error_message: complaint.errors.full_messages}
+      end
+  end
+
+  def show_user_complaints
+
+    user_id = get_logged_in_user_id
+
+    complaints = Complaint.where(user_id: user_id)
+
+    complaints.each do |complaint|
+      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+      if complaint_status
+        complaint.status = complaint_status.status
+      else
+        complaint.status = "New"
+      end
+    end
+
+    render json: complaints, methods: [:status]
+
+  end
+
+  # get complaint by complaint id
+  def show_complaint_by_id
+
+    complaint = Complaint.find(params[:id])
+    if complaint
+      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+      if complaint_status
+        complaint.status = complaint_status.status
+      else
+        complaint.status = "New"
+      end
+      render json: complaint, methods: [:status]
+    else
+      render json: {status: "error", error_message: "complaint not found"}
+    end
+
+  end
+
+  def create_alert
+
+    if params[:complaint_id] && params[:message]
+
+      complaint = Complaint.find(params[:complaint_id])
+      previous_alert = Alert.where(complaint_id: params[:complaint_id]).first
+
+      if previous_alert
+
+          time_elapsed = (Time.now() - previous_alert.created_at)/
+/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:72: syntax error, unexpected tINTEGER, expecting ')'
+revious_alert.created_at)/3600
+                              ^
+/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:154: syntax error, unexpected keyword_end, expecting end-of-input
+  end
+     ^):
+  
+app/controllers/complaints_controller.rb:72: unmatched close parenthesis: /get_logged_in_user_id,
+app/controllers/complaints_controller.rb:72: syntax error, unexpected tINTEGER, expecting ')'
+app/controllers/complaints_controller.rb:154: syntax error, unexpected keyword_end, expecting end-of-input
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:02:07 +0530
+  
+SyntaxError (/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:72: unmatched close parenthesis: /get_logged_in_user_id,
+                                status: "pending")
+
+    
+
+      if complaint.save
+        render json: {status: "success", complaint: complaint}
+      else
+        render json: {status: "error", error_message: complaint.errors.full_messages}
+      end
+  end
+
+  def show_user_complaints
+
+    user_id = get_logged_in_user_id
+
+    complaints = Complaint.where(user_id: user_id)
+
+    complaints.each do |complaint|
+      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+      if complaint_status
+        complaint.status = complaint_status.status
+      else
+        complaint.status = "New"
+      end
+    end
+
+    render json: complaints, methods: [:status]
+
+  end
+
+  # get complaint by complaint id
+  def show_complaint_by_id
+
+    complaint = Complaint.find(params[:id])
+    if complaint
+      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+      if complaint_status
+        complaint.status = complaint_status.status
+      else
+        complaint.status = "New"
+      end
+      render json: complaint, methods: [:status]
+    else
+      render json: {status: "error", error_message: "complaint not found"}
+    end
+
+  end
+
+  def create_alert
+
+    if params[:complaint_id] && params[:message]
+
+      complaint = Complaint.find(params[:complaint_id])
+      previous_alert = Alert.where(complaint_id: params[:complaint_id]).first
+
+      if previous_alert
+
+          time_elapsed = (Time.now() - previous_alert.created_at)/
+/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:72: syntax error, unexpected tINTEGER, expecting ')'
+revious_alert.created_at)/3600
+                              ^
+/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:154: syntax error, unexpected keyword_end, expecting end-of-input
+  end
+     ^):
+  
+app/controllers/complaints_controller.rb:72: unmatched close parenthesis: /get_logged_in_user_id,
+app/controllers/complaints_controller.rb:72: syntax error, unexpected tINTEGER, expecting ')'
+app/controllers/complaints_controller.rb:154: syntax error, unexpected keyword_end, expecting end-of-input
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:02:24 +0530
+  
+SyntaxError (/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:72: unmatched close parenthesis: /get_logged_in_user_id,
+                                status: "pending")
+
+    
+
+      if complaint.save
+        render json: {status: "success", complaint: complaint}
+      else
+        render json: {status: "error", error_message: complaint.errors.full_messages}
+      end
+  end
+
+  def show_user_complaints
+
+    user_id = get_logged_in_user_id
+
+    complaints = Complaint.where(user_id: user_id)
+
+    complaints.each do |complaint|
+      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+      if complaint_status
+        complaint.status = complaint_status.status
+      else
+        complaint.status = "New"
+      end
+    end
+
+    render json: complaints, methods: [:status]
+
+  end
+
+  # get complaint by complaint id
+  def show_complaint_by_id
+
+    complaint = Complaint.find(params[:id])
+    if complaint
+      complaint_status = ComplaintStatus.where(complaint_id: complaint.id).first
+      if complaint_status
+        complaint.status = complaint_status.status
+      else
+        complaint.status = "New"
+      end
+      render json: complaint, methods: [:status]
+    else
+      render json: {status: "error", error_message: "complaint not found"}
+    end
+
+  end
+
+  def create_alert
+
+    if params[:complaint_id] && params[:message]
+
+      complaint = Complaint.find(params[:complaint_id])
+      previous_alert = Alert.where(complaint_id: params[:complaint_id]).first
+
+      if previous_alert
+
+          time_elapsed = (Time.now() - previous_alert.created_at)/
+/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:72: syntax error, unexpected tINTEGER, expecting ')'
+revious_alert.created_at)/3600
+                              ^
+/home/rails/Parakh/rails/collegegrievance/app/controllers/complaints_controller.rb:154: syntax error, unexpected keyword_end, expecting end-of-input
+  end
+     ^):
+  
+app/controllers/complaints_controller.rb:72: unmatched close parenthesis: /get_logged_in_user_id,
+app/controllers/complaints_controller.rb:72: syntax error, unexpected tINTEGER, expecting ')'
+app/controllers/complaints_controller.rb:154: syntax error, unexpected keyword_end, expecting end-of-input
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:02:50 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"fees1", "description"=>"fees", "image"=>"123456", "user_id"=>"3"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "9H25tUNNnkazeAwFB4Be2tD5"], ["secret_key", "HKBfMfaNMihnJ9EuLCaFNknv"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "complaints" ("subject", "description", "image", "user_id", "created_at", "updated_at", "status") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["subject", "fees1"], ["description", "fees"], ["image", "123456"], ["user_id", 3], ["created_at", 2018-04-16 07:32:50 UTC], ["updated_at", 2018-04-16 07:32:50 UTC], ["status", "pending"]]
+  [1m[35m (28.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 78ms (Views: 0.8ms | ActiveRecord: 37.3ms)
+
+

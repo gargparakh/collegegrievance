@@ -11,7 +11,6 @@ class ApplicationController < ActionController::API
 private
 
     def check_user_logged_in
-
         if request.headers["HTTP_ACCESS_TOKEN"] && request.headers["HTTP_SECRET_KEY"]
 
           user = ApiKey.where(secret_key: request.headers["HTTP_SECRET_KEY"],
