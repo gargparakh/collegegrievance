@@ -5057,3 +5057,40 @@ Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
 
 
   [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-16 13:31:04 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakhgarg@gmail.com", "password"=>"[FILTERED]", "image"=>"123456", "user_id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakhgarg@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 14ms (Views: 0.3ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-16 13:31:31 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"garg.parakh@gmail.com", "password"=>"[FILTERED]", "image"=>"123456", "user_id"=>"3"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "garg.parakh@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 74ms (Views: 0.2ms | ActiveRecord: 1.4ms)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-16 13:32:02 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"garg.parakh2@gmail.com", "password"=>"[FILTERED]", "image"=>"123456", "user_id"=>"3"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "garg.parakh2@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 67ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["email", "garg.parakh2@gmail.com"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "password_digest" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["password_digest", "$2a$10$1clJDncd53iBTnNCuv/z4urS20HDovzclQA6IhiKmS1YCcmpm8n2O"], ["updated_at", 2018-04-16 08:02:24 UTC], ["id", 3]]
+  [1m[35m (14.0ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-16 13:32:28 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"garg.parakh2@gmail.com", "password"=>"[FILTERED]", "image"=>"123456", "user_id"=>"3"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "garg.parakh2@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (19.2ms)[0m  [1m[32mINSERT INTO "api_keys" ("secret_key", "user_id", "user_token", "user_type", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["secret_key", "pB4VEkQn2d4oEe2HWv6PdPTv"], ["user_id", 3], ["user_token", "BgoK4LMoeN8MXnNhnRRWFMGK"], ["user_type", "visitor"], ["created_at", 2018-04-16 08:02:28 UTC], ["updated_at", 2018-04-16 08:02:28 UTC]]
+  [1m[35m (28.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 126ms (Views: 0.6ms | ActiveRecord: 50.6ms)
+
+
