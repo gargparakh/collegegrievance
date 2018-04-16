@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
   before_action :check_user_logged_in, only: [:update_password]
+
+
+
   def create
     user = User.new(name: params[:name],
                     contact: params[:contact],
@@ -10,13 +13,20 @@ class UsersController < ApplicationController
                     verified: "false")
 
     if user.save
-  
+      # email_verification = Email.new(user_id: user.id)
+      # if email_verification.save
+      #   #SignupMailer.confirmation_email(user, email_verification, @front_end_link).deliver
+      # else
+      #   render json: {status: "success", message: "email not sent"}
+      # end
 
       render json: {status: "success", message: "successfully signup"}
     else
       render json: {status: "error", error_message: user.errors.full_messages}
     end
   end
+
+
 
   def verified
     if User.find(get_logged_in_user_id).verified
