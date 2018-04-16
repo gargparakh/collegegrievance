@@ -5049,3 +5049,10 @@ Processing by ComplaintsController#create_complaint as */*
 Completed 200 OK in 78ms (Views: 0.8ms | ActiveRecord: 37.3ms)
 
 
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-16 13:10:23 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakhgarg@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakhgarg@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+

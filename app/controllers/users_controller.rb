@@ -30,7 +30,6 @@ class UsersController < ApplicationController
 
   def verified
     if User.find(get_logged_in_user_id).verified
-      # render json: {status: "success", message: "You are verified user."}
       return true
     else
       render json: {status: "error", error_message: "You are not verified yet."}
