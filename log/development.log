@@ -5094,3 +5094,27 @@ Processing by AuthController#user_login as */*
 Completed 200 OK in 126ms (Views: 0.6ms | ActiveRecord: 50.6ms)
 
 
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:41:13 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"fees1", "description"=>"fees1", "image"=>"123456", "user_id"=>"8"}
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "mJSrx6MhmhjEtcvhHKQBV4Cu"], ["user_token", "cMp4R2kvbPBp6kTmi36oT3jm"], ["LIMIT", 1]]
+Filter chain halted as :check_user_logged_in rendered or redirected
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:44:31 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"fees1", "description"=>"fees1", "image"=>"123456"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "mJSrx6MhmhjEtcvhHKQBV4Cu"], ["user_token", "cMp4R2kvbPBp6kTmi36oT3jm"], ["LIMIT", 1]]
+Filter chain halted as :check_user_logged_in rendered or redirected
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-16 13:45:02 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"fees1", "description"=>"fees1", "image"=>"123456", "user_id"=>"8"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "mJSrx6MhmhjEtcvhHKQBV4Cu"], ["user_token", "cMp4R2kvbPBp6kTmi36oT3jm"], ["LIMIT", 1]]
+Filter chain halted as :check_user_logged_in rendered or redirected
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.5ms)
+
+
