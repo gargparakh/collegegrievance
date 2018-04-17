@@ -21,7 +21,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'actionmailer'
 # for cors error
 gem 'rack-cors'
-#gem 'devise'
+gem 'devise'
 # to send sms
 #gem 'twilio-ruby'
 
