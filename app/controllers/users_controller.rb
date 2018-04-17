@@ -8,7 +8,7 @@ class UsersController < ApplicationController
                     password: params[:password],
                     enroll_no: params[:enroll_no],
                     branch: params[:branch],
-                    semester: params[:semester]
+                    semester: params[:semester],
                     verified: "false")
 
     if user.save
