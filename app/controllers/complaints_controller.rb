@@ -1,13 +1,14 @@
 class ComplaintsController < ApplicationController
-  before_action :check_user_logged_in, :verified
-  #before_action :check_user_logged_in_as_admin, only: []
+  before_action :check_user_logged_in, :verified, only: [:create_complaint, :show_user_complaints, :show_user_resolved_complaints]
+  before_action :check_user_logged_in_as_admin, only: [:pending_complaint_list, :resolved_complaint_list]
 
   def create_complaint
     complaint = Complaint.new(subject: params[:subject],
                               description: params[:description],
                               image: params[:image],
                               user_id: get_logged_in_user_id,
-                              status: "pending")
+                              status: "pending",
+                              resolved: "Conclusion")
 
     if complaint.save
       render json: {status: "success", complaint: complaint}

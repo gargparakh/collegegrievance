@@ -6073,3 +6073,416 @@ Migrating to AddColumnToUser (20180417061550)
   [1m[35m (20.0ms)[0m  [1m[35mALTER TABLE "users" ADD "branch" character varying[0m
   [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
   [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(172529728443564555)[0m
+Started POST "/users" for 127.0.0.1 at 2018-04-17 13:00:21 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (48.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#create as */*
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (21.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."enroll_no" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+Completed 200 OK in 277ms (Views: 0.4ms | ActiveRecord: 122.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2018-04-17 13:01:39 +0530
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Parakh", "email"=>"parakh@gmail.com", "password"=>"[FILTERED]", "enroll_no"=>"12345", "branch"=>"cse", "semester"=>"8"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."enroll_no") = LOWER($1) LIMIT $2[0m  [["enroll_no", "12345"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (17.6ms)[0m  [1m[32mINSERT INTO "users" ("enroll_no", "branch", "semester", "name", "email", "verified", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["enroll_no", "12345"], ["branch", "cse"], ["semester", "8"], ["name", "Parakh"], ["email", "parakh@gmail.com"], ["verified", false], ["password_digest", "$2a$10$fJqsHwMlhGamRPwkXyInoutY7qSVuMGZuBUnTpItviWDz/fsII5Ly"], ["created_at", 2018-04-17 07:31:40 UTC], ["updated_at", 2018-04-17 07:31:40 UTC]]
+  [1m[35m (27.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 166ms (Views: 0.3ms | ActiveRecord: 96.5ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:02:08 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (36.1ms)[0m  [1m[32mINSERT INTO "api_keys" ("secret_key", "user_id", "user_token", "user_type", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["secret_key", "YWc4hvLub3ucB2CVmdcX9rAG"], ["user_id", 4], ["user_token", "vDeXaRy4qtm6xmtKVJooby4L"], ["user_type", "visitor"], ["created_at", 2018-04-17 07:32:08 UTC], ["updated_at", 2018-04-17 07:32:08 UTC]]
+  [1m[35m (26.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 154ms (Views: 0.7ms | ActiveRecord: 69.5ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:06:19 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+Completed 200 OK in 103ms (Views: 0.2ms | ActiveRecord: 4.3ms)
+
+
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.7ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+  [1m[36mApiKey Load (0.6ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 1]]
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 2]]
+  [1m[35m (10.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 3]]
+  [1m[35m (11.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 4]]
+  [1m[35m (10.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 5]]
+  [1m[35m (11.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 6]]
+  [1m[35m (10.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 7]]
+  [1m[35m (12.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 9]]
+  [1m[35m (10.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 10]]
+  [1m[35m (11.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 14]]
+  [1m[35m (9.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 15]]
+  [1m[35m (12.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 16]]
+  [1m[35m (10.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 17]]
+  [1m[35m (12.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "api_keys" WHERE "api_keys"."id" = $1[0m  [["id", 18]]
+  [1m[35m (10.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:08:34 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+Completed 404 Not Found in 66ms (ActiveRecord: 0.9ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find ApiKey with 'id'=4):
+  
+app/controllers/auth_controller.rb:16:in `user_login'
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:12:15 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "api_keys" ("secret_key", "user_id", "user_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["secret_key", "bEFXASgRDRyfyNiEMSj1KoRp"], ["user_id", 4], ["user_token", "oQ8Svqv64LnsMRCSXaJYah4R"], ["created_at", 2018-04-17 07:42:15 UTC], ["updated_at", 2018-04-17 07:42:15 UTC]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 126ms (Views: 0.6ms | ActiveRecord: 23.9ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:12:20 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+Completed 200 OK in 67ms (Views: 0.3ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:12:22 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+Completed 200 OK in 70ms (Views: 0.3ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:12:23 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+Completed 200 OK in 67ms (Views: 0.3ms | ActiveRecord: 0.8ms)
+
+
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:14:15 +0530
+  
+SyntaxError (/home/rails/Parakh/rails/collegegrievance/app/controllers/auth_controller.rb:16: syntax error, unexpected ')', expecting =>
+user.id,user_type = "visitor")
+                              ^):
+  
+app/controllers/auth_controller.rb:16: syntax error, unexpected ')', expecting =>
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:15:17 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 96ms (ActiveRecord: 6.6ms)
+
+
+  
+NoMethodError (undefined method `secret_key' for "visitor":String):
+  
+app/controllers/auth_controller.rb:18:in `user_login'
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:15:29 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 92ms (ActiveRecord: 0.8ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 1, expected 0)):
+  
+app/controllers/auth_controller.rb:16:in `user_login'
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:19:40 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 91ms (ActiveRecord: 0.9ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 1, expected 0)):
+  
+app/controllers/auth_controller.rb:17:in `user_login'
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:20:15 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "api_keys" SET "user_type" = $1, "updated_at" = $2 WHERE "api_keys"."id" = $3[0m  [["user_type", "visitor"], ["updated_at", 2018-04-17 07:50:15 UTC], ["id", 19]]
+  [1m[35m (35.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 125ms (Views: 0.4ms | ActiveRecord: 37.6ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:20:19 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 67ms (Views: 0.4ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:20:21 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 77ms (Views: 0.3ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2018-04-17 13:22:19 +0530
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Parakh", "email"=>"parakh1@gmail.com", "password"=>"[FILTERED]", "enroll_no"=>"12345", "branch"=>"cse", "semester"=>"8", "contact"=>"9876543210"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."enroll_no") = LOWER($1) LIMIT $2[0m  [["enroll_no", "12345"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "parakh1@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 200 OK in 79ms (Views: 0.3ms | ActiveRecord: 2.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2018-04-17 13:22:33 +0530
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"Parakh", "email"=>"parakh1@gmail.com", "password"=>"[FILTERED]", "enroll_no"=>"123456", "branch"=>"cse", "semester"=>"8", "contact"=>"9876543210"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."enroll_no") = LOWER($1) LIMIT $2[0m  [["enroll_no", "123456"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "parakh1@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("enroll_no", "branch", "semester", "name", "contact", "email", "verified", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["enroll_no", "123456"], ["branch", "cse"], ["semester", "8"], ["name", "Parakh"], ["contact", "9876543210"], ["email", "parakh1@gmail.com"], ["verified", false], ["password_digest", "$2a$10$obxZN/PadB1ddvX15L4PIOjRYVGdDvYlxoWEWdenCNoocM5XGHphG"], ["created_at", 2018-04-17 07:52:33 UTC], ["updated_at", 2018-04-17 07:52:33 UTC]]
+  [1m[35m (31.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 104ms (Views: 0.3ms | ActiveRecord: 32.6ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:22:51 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh1@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh1@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 5], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "api_keys" ("secret_key", "user_id", "user_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["secret_key", "oXnR6K5tJJqAGGcGJm5SVKGC"], ["user_id", 5], ["user_token", "PHsmXpuBaY4YzWCrcojeBGhs"], ["created_at", 2018-04-17 07:52:51 UTC], ["updated_at", 2018-04-17 07:52:51 UTC]]
+  [1m[35m (34.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[33mUPDATE "api_keys" SET "user_type" = $1, "updated_at" = $2 WHERE "api_keys"."id" = $3[0m  [["user_type", "visitor"], ["updated_at", 2018-04-17 07:52:51 UTC], ["id", 20]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 131ms (Views: 0.4ms | ActiveRecord: 44.8ms)
+
+
+Started POST "/auth/user_login" for 127.0.0.1 at 2018-04-17 13:22:58 +0530
+Processing by AuthController#user_login as */*
+  Parameters: {"email"=>"parakh1@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "parakh1@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 5], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 72ms (Views: 0.3ms | ActiveRecord: 1.0ms)
+
+
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT "api_keys".* FROM "api_keys"[0m
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-17 13:44:18 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"Fees", "description"=>"Fine", "image"=>"image"}
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "oXnR6K5tJJqAGGcGJm5SVKGC"], ["user_token", "PHsmXpuBaY4YzWCrcojeBGhs"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "PHsmXpuBaY4YzWCrcojeBGhs"], ["secret_key", "oXnR6K5tJJqAGGcGJm5SVKGC"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+Filter chain halted as :verified rendered or redirected
+Completed 200 OK in 34ms (Views: 0.2ms | ActiveRecord: 6.4ms)
+
+
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."enroll_no") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["enroll_no", "123456"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["email", "parakh1@gmail.com"], ["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "verified" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["verified", true], ["updated_at", 2018-04-17 08:15:29 UTC], ["id", 5]]
+  [1m[35m (28.1ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/complaints/create_complaint" for 127.0.0.1 at 2018-04-17 13:45:33 +0530
+Processing by ComplaintsController#create_complaint as */*
+  Parameters: {"subject"=>"Fees", "description"=>"Fine", "image"=>"image"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "oXnR6K5tJJqAGGcGJm5SVKGC"], ["user_token", "PHsmXpuBaY4YzWCrcojeBGhs"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "PHsmXpuBaY4YzWCrcojeBGhs"], ["secret_key", "oXnR6K5tJJqAGGcGJm5SVKGC"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_token" = $1 AND "api_keys"."secret_key" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["user_token", "PHsmXpuBaY4YzWCrcojeBGhs"], ["secret_key", "oXnR6K5tJJqAGGcGJm5SVKGC"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (55.6ms)[0m  [1m[32mINSERT INTO "complaints" ("subject", "description", "image", "user_id", "created_at", "updated_at", "status", "resolved") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["subject", "Fees"], ["description", "Fine"], ["image", "image"], ["user_id", 5], ["created_at", 2018-04-17 08:15:33 UTC], ["updated_at", 2018-04-17 08:15:33 UTC], ["status", "pending"], ["resolved", "Conclusion"]]
+  [1m[35m (24.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 126ms (Views: 1.4ms | ActiveRecord: 83.9ms)
+
+
+Started POST "/complaint_chats/create" for 127.0.0.1 at 2018-04-17 13:48:39 +0530
+  
+ActionController::RoutingError (No route matches [POST] "/complaint_chats/create"):
+  
+actionpack (5.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.1) lib/rack/cors.rb:81:in `call'
+railties (5.0.2) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started POST "/complaint_chats/create_chat" for 127.0.0.1 at 2018-04-17 13:49:09 +0530
+Processing by ComplaintChatsController#create_chat as */*
+  Parameters: {"chats"=>"Hello", "complaint_id"=>"9", "role"=>"user"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (36.8ms)[0m  [1m[32mINSERT INTO "complaint_chats" ("chats", "role", "complaint_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chats", "Hello"], ["role", "user"], ["complaint_id", 9], ["created_at", 2018-04-17 08:19:09 UTC], ["updated_at", 2018-04-17 08:19:09 UTC]]
+  [1m[35m (25.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 85ms (Views: 1.0ms | ActiveRecord: 66.0ms)
+
+
+Started POST "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:50:39 +0530
+Processing by ComplaintChatsController#show_complaint_chats as */*
+  [1m[36mComplaint Load (0.5ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+Completed 404 Not Found in 3ms (ActiveRecord: 0.5ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Complaint with 'id'=):
+  
+app/controllers/complaint_chats_controller.rb:20:in `show_complaint_chats'
+Started POST "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:50:48 +0530
+Processing by ComplaintChatsController#show_complaint_chats as */*
+  Parameters: {"complaint_id"=>"9"}
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+Completed 404 Not Found in 1ms (ActiveRecord: 0.3ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Complaint with 'id'=):
+  
+app/controllers/complaint_chats_controller.rb:20:in `show_complaint_chats'
+Started GET "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:50:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/complaint_chats/show_complaint_chats"):
+  
+actionpack (5.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.1) lib/rack/cors.rb:81:in `call'
+railties (5.0.2) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started POST "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:51:32 +0530
+Processing by ComplaintChatsController#show_complaint_chats as */*
+  Parameters: {"complaint_id"=>"9"}
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+Completed 404 Not Found in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Complaint with 'id'=):
+  
+app/controllers/complaint_chats_controller.rb:20:in `show_complaint_chats'
+Started POST "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:52:22 +0530
+Processing by ComplaintChatsController#show_complaint_chats as */*
+  Parameters: {"complaint_id"=>"9"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant ComplaintChatsController::Complaints):
+  
+app/controllers/complaint_chats_controller.rb:20:in `show_complaint_chats'
+  [1m[36mComplaint Load (0.5ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+Started POST "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:53:37 +0530
+Processing by ComplaintChatsController#show_complaint_chats as */*
+  Parameters: {"id"=>"9"}
+  [1m[36mComplaint Load (0.4ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mComplaintChat Load (0.3ms)[0m  [1m[34mSELECT "complaint_chats".* FROM "complaint_chats" WHERE "complaint_chats"."complaint_id" = 9[0m
+Completed 200 OK in 28ms (Views: 6.0ms | ActiveRecord: 6.4ms)
+
+
+Started POST "/complaint_chats/create_chat" for 127.0.0.1 at 2018-04-17 13:54:58 +0530
+Processing by ComplaintChatsController#create_chat as */*
+  Parameters: {"chats"=>"Hello", "complaint_id"=>"9", "role"=>"admin"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "complaint_chats" ("chats", "role", "complaint_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chats", "Hello"], ["role", "admin"], ["complaint_id", 9], ["created_at", 2018-04-17 08:24:58 UTC], ["updated_at", 2018-04-17 08:24:58 UTC]]
+  [1m[35m (29.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 39ms (Views: 0.7ms | ActiveRecord: 30.1ms)
+
+
+Started POST "/complaint_chats/show_complaint_chats" for 127.0.0.1 at 2018-04-17 13:55:22 +0530
+Processing by ComplaintChatsController#show_complaint_chats as */*
+  Parameters: {"complaint_id"=>"9"}
+  [1m[36mComplaint Load (0.2ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mComplaintChat Load (0.3ms)[0m  [1m[34mSELECT "complaint_chats".* FROM "complaint_chats" WHERE "complaint_chats"."complaint_id" = 9[0m
+Completed 200 OK in 26ms (Views: 6.3ms | ActiveRecord: 5.5ms)
+
+

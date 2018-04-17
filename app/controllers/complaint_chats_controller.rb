@@ -17,7 +17,7 @@ class ComplaintChatsController < ApplicationController
 
 
   def show_complaint_chats
-    complaint_id = Complaint.find(params[:id])
+    complaint_id = Complaint.find(params[:complaint_id])
     complaints_chats = ComplaintChat.where(complaint_id: complaint_id)
     render json: complaints_chats
   end
