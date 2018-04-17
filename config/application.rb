@@ -32,5 +32,6 @@ module BackEnd
       end
     end
     config.api_only = true
+    config.time_zone = 'Kolkata'
   end
 end
