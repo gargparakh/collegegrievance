@@ -1,6 +1,6 @@
 class ComplaintsController < ApplicationController
   before_action :check_user_logged_in, :verified, only: [:create_complaint, :show_user_complaints, :show_user_resolved_complaints]
-  before_action :check_user_logged_in_as_admin, only: [:pending_complaint_list, :resolved_complaint_list]
+  before_action :check_user_logged_in_as_admin, only: [:pending_complaint_list, :resolved_complaint_list, :resolve_complaint]
 
   def create_complaint
     complaint = Complaint.new(subject: params[:subject],
@@ -67,17 +67,13 @@ class ComplaintsController < ApplicationController
     end
   end
 
-  def mark_finished
+  def resolve_complaint
     if params[:complaint_id]
-      complaint_update = ComplaintUpdate.new(complaint_id: params[:complaint_id],
-                                             assigned_to: "Completed!",
-                                             notes: "Please raise an alert if anything goes wrong")
-
-      complaint_status = ComplaintStatus.where(complaint_id: params[:complaint_id]).first
-
-      complaint_status.status = "completed"
-
-      if complaint_status.save && complaint_update.save
+      complaint= Complaint.find(params[:complaint_id])
+      complaint.status = "resolved"
+      complaint.resolved = params[:resolved]
+    
+      if complaint.save
         render json: {status: "success", message: "Update succesfull"}
       else
         render json: {status: "error", error_message: "database not reachable"}
@@ -86,4 +82,24 @@ class ComplaintsController < ApplicationController
       render json: {status: "error", error_message: "params missing"}
     end
   end
+
+  # def mark_finished
+  #   if params[:complaint_id]
+  #     complaint_update = ComplaintUpdate.new(complaint_id: params[:complaint_id],
+  #                                            assigned_to: "Completed!",
+  #                                            notes: "Please raise an alert if anything goes wrong")
+
+  #     complaint_status = ComplaintStatus.where(complaint_id: params[:complaint_id]).first
+
+  #     complaint_status.status = "completed"
+
+  #     if complaint_status.save && complaint_update.save
+  #       render json: {status: "success", message: "Update succesfull"}
+  #     else
+  #       render json: {status: "error", error_message: "database not reachable"}
+  #     end
+  #   else
+  #     render json: {status: "error", error_message: "params missing"}
+  #   end
+  # end
 end

@@ -10,15 +10,19 @@ Rails.application.routes.draw do
   #Complaint Controller
   post 'complaints/create_complaint' => 'complaints#create_complaint'
   post 'complaints/show_user_complaints' => 'complaints#show_user_complaints'
-  post 'complaints/pending_complaint_list' => 'complaints#pending_complaint_list'
-  post 'complaints/resolved_complaint_list' => 'complaints#resolved_complaint_list'
+  get 'complaints/pending_complaint_list' => 'complaints#pending_complaint_list'
+  get 'complaints/resolved_complaint_list' => 'complaints#resolved_complaint_list'
   post 'complaints/show_user_resolved_complaints' => 'complaints#show_user_resolved_complaints'
+  post 'complaints/resolve_complaint' => 'complaints#resolve_complaint'
 
   #ComplaintChat Controller
-
   post 'complaint_chats/create_chat' => 'complaint_chats#create_chat'
   post 'complaint_chats/show_complaint_chats' => 'complaint_chats#show_complaint_chats'
 
+  #User Controller
+  post 'users/unverified_user_list' => 'users#unverified_user_list'
+  post 'users/verified_user_list' => 'users#verified_user_list'
+  post 'users/verify_user' => 'users#verify_user'
   #Resources
   resources :admin_users do
   end

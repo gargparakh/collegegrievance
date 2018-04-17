@@ -38,21 +38,7 @@ class AdminUsersController < ApplicationController
     end
   end
 
-  #Verify the user
 
-  def verify_users
-    if params[:id]
-      user = User.find(id: params[:id])
-      user.verified = "true"
-      if user.save
-        render json: {status: "success"}
-      else
-        error_message = user.errors.full_messages
-      end
-    else
-      render json: {status: "error", error_message: "params missing"}
-    end
-  end
 
   #fetch complaints
 

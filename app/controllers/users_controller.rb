@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_user_logged_in, only: [:update_password]
-
+  before_action :check_user_logged_in_as_admin, only: [:verify_user, :unverified_user_list, :verified_user_list ]
   def create
     user = User.new(name: params[:name],
                     contact: params[:contact],
@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     end
   end
 
+  #Check user is verified or not
   def verified
     if User.find(get_logged_in_user_id).verified
       return true
@@ -26,6 +27,43 @@ class UsersController < ApplicationController
       return false
     end
   end
+  #Verify the user
+
+  def verify_user
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      user.verified = "true"
+      if user.save
+        render json: {status: "success"}
+      else
+        error_message = user.errors.full_messages
+      end
+    else
+      render json: {status: "error", error_message: "params missing"}
+    end
+  end
+
+  #unverified_user_list for admins
+  def unverified_user_list
+    users = User.where(verified: "false")
+    if users
+      render json: users
+    else
+      render json: {status: "error", error_message: "Users not found"}
+    end
+  end
+
+
+  #verified_user_list for admin
+  def verified_user_list
+    users = User.where(verified: "true")
+    if users
+      render json: users
+    else
+      render json: {status: "error", error_message: "Users not found"}
+    end
+  end
+
 
   def update_password
     if params[:old_password] && params[:new_password]

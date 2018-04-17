@@ -6486,3 +6486,153 @@ Processing by ComplaintChatsController#show_complaint_chats as */*
 Completed 200 OK in 26ms (Views: 6.3ms | ActiveRecord: 5.5ms)
 
 
+  [1m[36mAdminUser Load (23.5ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users"[0m
+Started POST "/admin_users" for 127.0.0.1 at 2018-04-17 13:59:04 +0530
+Processing by AdminUsersController#create as */*
+  Parameters: {"name"=>"Parakh", "email"=>"parakh@gmail.com", "designation"=>"HOD", "password"=>"[FILTERED]", "phone"=>"9876543210"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAdminUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "admin_users" WHERE LOWER("admin_users"."email") = LOWER($1) LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (11.7ms)[0m  [1m[32mINSERT INTO "admin_users" ("name", "email", "phone", "password_digest", "designation", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Parakh"], ["email", "parakh@gmail.com"], ["phone", "9876543210"], ["password_digest", "$2a$10$plZQ1BYE0VFU.LHPnXuG8evBbCS4Z3.m8U6S4QIYbK22y1GblNQH2"], ["designation", "HOD"], ["created_at", 2018-04-17 08:29:04 UTC], ["updated_at", 2018-04-17 08:29:04 UTC]]
+  [1m[35m (25.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 121ms (Views: 0.3ms | ActiveRecord: 41.5ms)
+
+
+Started POST "/auth/admin_login" for 127.0.0.1 at 2018-04-17 13:59:26 +0530
+Processing by AuthController#admin_login as */*
+  Parameters: {"email"=>"parakh@gmail.com", "password"=>"[FILTERED]"}
+  [1m[36mAdminUser Load (0.7ms)[0m  [1m[34mSELECT  "admin_users".* FROM "admin_users" WHERE "admin_users"."email" = $1 ORDER BY "admin_users"."id" ASC LIMIT $2[0m  [["email", "parakh@gmail.com"], ["LIMIT", 1]]
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "api_keys" ("secret_key", "user_id", "user_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_id", 1], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["created_at", 2018-04-17 08:29:26 UTC], ["updated_at", 2018-04-17 08:29:26 UTC]]
+  [1m[35m (26.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "api_keys" SET "user_type" = $1, "updated_at" = $2 WHERE "api_keys"."id" = $3[0m  [["user_type", "admin"], ["updated_at", 2018-04-17 08:29:26 UTC], ["id", 21]]
+  [1m[35m (10.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 121ms (Views: 0.4ms | ActiveRecord: 41.5ms)
+
+
+Started POST "/complaints/pending_complaint_list" for 127.0.0.1 at 2018-04-17 14:00:56 +0530
+Processing by ComplaintsController#pending_complaint_list as */*
+Filter chain halted as :check_user_logged_in_as_admin rendered or redirected
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/complaints/pending_complaint_list" for 127.0.0.1 at 2018-04-17 14:01:05 +0530
+Processing by ComplaintsController#pending_complaint_list as */*
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["LIMIT", 1]]
+  [1m[36mComplaint Load (0.4ms)[0m  [1m[34mSELECT "complaints".* FROM "complaints" WHERE "complaints"."status" = $1[0m  [["status", "pending"]]
+Completed 200 OK in 6ms (Views: 3.1ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/complaints/resolved_complaint_list" for 127.0.0.1 at 2018-04-17 14:01:25 +0530
+Processing by ComplaintsController#resolved_complaint_list as */*
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 ORDER BY "api_keys"."id" ASC LIMIT $3[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["LIMIT", 1]]
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT "complaints".* FROM "complaints" WHERE "complaints"."status" = $1[0m  [["status", "resolved"]]
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.8ms)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."verified" = $1[0m  [["verified", "false"]]
+Started POST "/users/unverified_user_list" for 127.0.0.1 at 2018-04-17 14:11:35 +0530
+Processing by UsersController#unverified_user_list as */*
+  [1m[36mApiKey Load (0.3ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."verified" = $1[0m  [["verified", "false"]]
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 5.9ms)
+
+
+  
+NoMethodError (undefined method `status' for #<User:0x007fa8206c1900>):
+  
+app/controllers/users_controller.rb:33:in `unverified_user_list'
+Started POST "/users/unverified_user_list" for 127.0.0.1 at 2018-04-17 14:16:43 +0530
+Processing by UsersController#unverified_user_list as */*
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."verified" = $1[0m  [["verified", "false"]]
+Completed 200 OK in 22ms (Views: 8.3ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users/verified_user_list" for 127.0.0.1 at 2018-04-17 14:18:20 +0530
+Processing by UsersController#verified_user_list as */*
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."verified" = $1[0m  [["verified", "true"]]
+Completed 200 OK in 23ms (Views: 8.5ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users/unverified_user_list" for 127.0.0.1 at 2018-04-17 14:23:40 +0530
+Processing by UsersController#unverified_user_list as */*
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."verified" = $1[0m  [["verified", "false"]]
+Completed 200 OK in 30ms (Views: 11.6ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/users/verify_user" for 127.0.0.1 at 2018-04-17 14:24:45 +0530
+Processing by UsersController#verify_user as */*
+  Parameters: {"user_id"=>"4"}
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4Gwa"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+Filter chain halted as :check_user_logged_in_as_admin rendered or redirected
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users/verify_user" for 127.0.0.1 at 2018-04-17 14:24:51 +0530
+Processing by UsersController#verify_user as */*
+  Parameters: {"user_id"=>"4"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+Completed 404 Not Found in 16ms (ActiveRecord: 4.8ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'={:id=>"4"}):
+  
+app/controllers/users_controller.rb:34:in `verify_user'
+Started POST "/users/verify_user" for 127.0.0.1 at 2018-04-17 14:25:31 +0530
+Processing by UsersController#verify_user as */*
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+Started POST "/users/verify_user" for 127.0.0.1 at 2018-04-17 14:27:11 +0530
+Processing by UsersController#verify_user as */*
+  Parameters: {"user_id"=>"4"}
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."enroll_no") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["enroll_no", "12345"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["email", "parakh@gmail.com"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "users" SET "verified" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["verified", true], ["updated_at", 2018-04-17 08:57:11 UTC], ["id", 4]]
+  [1m[35m (29.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 63ms (Views: 0.3ms | ActiveRecord: 31.8ms)
+
+
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."enroll_no") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["enroll_no", "12345"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) AND ("users"."id" != $2) LIMIT $3[0m  [["email", "parakh@gmail.com"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "verified" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["verified", false], ["updated_at", 2018-04-17 08:57:38 UTC], ["id", 4]]
+  [1m[35m (27.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/complaints/pending_complaint_list" for 127.0.0.1 at 2018-04-17 14:44:29 +0530
+Processing by ComplaintsController#pending_complaint_list as */*
+  [1m[36mApiKey Load (0.4ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT "complaints".* FROM "complaints" WHERE "complaints"."status" = $1[0m  [["status", "pending"]]
+Completed 200 OK in 27ms (Views: 10.2ms | ActiveRecord: 2.9ms)
+
+
+Started POST "/complaints/resolve_complaint" for 127.0.0.1 at 2018-04-17 14:55:39 +0530
+Processing by ComplaintsController#resolve_complaint as */*
+  Parameters: {"complaint_id"=>"6", "resolved"=>"We have successfully waived the fine"}
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mComplaint Load (0.3ms)[0m  [1m[34mSELECT  "complaints".* FROM "complaints" WHERE "complaints"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "complaints" SET "status" = $1, "resolved" = $2, "updated_at" = $3 WHERE "complaints"."id" = $4[0m  [["status", "resolved"], ["resolved", "We have successfully waived the fine"], ["updated_at", 2018-04-17 09:25:39 UTC], ["id", 6]]
+  [1m[35m (28.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 90ms (Views: 0.3ms | ActiveRecord: 30.0ms)
+
+
+Started GET "/complaints/resolved_complaint_list" for 127.0.0.1 at 2018-04-17 14:56:23 +0530
+Processing by ComplaintsController#resolved_complaint_list as */*
+  [1m[36mApiKey Load (0.5ms)[0m  [1m[34mSELECT  "api_keys".* FROM "api_keys" WHERE "api_keys"."secret_key" = $1 AND "api_keys"."user_token" = $2 AND "api_keys"."user_type" = $3 ORDER BY "api_keys"."id" ASC LIMIT $4[0m  [["secret_key", "VMYFhL7uvYKWJqis3xN4GwaL"], ["user_token", "vPScrp4Vh2MLARbwcSJV832s"], ["user_type", "admin"], ["LIMIT", 1]]
+  [1m[36mComplaint Load (0.4ms)[0m  [1m[34mSELECT "complaints".* FROM "complaints" WHERE "complaints"."status" = $1[0m  [["status", "resolved"]]
+Completed 200 OK in 6ms (Views: 2.5ms | ActiveRecord: 0.9ms)
+
+
